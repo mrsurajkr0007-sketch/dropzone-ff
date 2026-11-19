@@ -2469,30 +2469,34 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
 /* --- MOBILE FIXES --- */
 @media (max-width: 768px) {
   /* 1. Make countdown fit perfectly on phone screens */
-  #countdown, .countdown-container, [id*="countdown"] {
+  #countdown {
     flex-wrap: wrap !important;
     justify-content: center !important;
-    transform: scale(0.85); /* Shrinks the timer slightly so it doesn't get cut off */
+    transform: scale(0.85);
     transform-origin: center;
   }
   
-  /* 2. Enable smooth finger-swiping for carousels */
-  .carousel, .carousel-inner, [id*="carousel"], [id*="slider"], #tournamentsList {
+  /* 2. Force smooth finger-swiping for ALL carousels */
+  #tournamentsList, .embla__container, [class*="carousel"] {
+    display: flex !important;
+    flex-wrap: nowrap !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
     scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important; /* Enables smooth iOS/Android swiping */
-    display: flex !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none; /* Firefox */
   }
   
-  /* Snap the cards into place when swiping */
-  .carousel > div, .carousel-inner > div, [id*="carousel"] > div, [id*="slider"] > div {
+  /* Target the specific tournament cards inside the carousel */
+  #tournamentsList > div, .embla__slide, [class*="carousel"] > div {
+    flex: 0 0 auto !important;
+    width: 85vw !important; /* Makes cards slightly smaller than screen width so next card peeks out */
     scroll-snap-align: center !important;
-    flex-shrink: 0 !important;
+    margin-right: 15px !important;
   }
 
-  /* Hide the ugly horizontal scrollbar on phones */
-  ::-webkit-scrollbar {
+  /* Hide scrollbar for Chrome/Safari/Edge */
+  #tournamentsList::-webkit-scrollbar, .embla__container::-webkit-scrollbar, [class*="carousel"]::-webkit-scrollbar {
     display: none !important;
   }
 }  </style>
