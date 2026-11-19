@@ -2466,9 +2466,9 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         display: none;
       }
     }
-/* --- RESPONSIVE CAROUSEL & COUNTDOWN FIXES --- */
+/* --- BULLETPROOF SCROLLING & COUNTDOWN FIX --- */
 
-/* 1. Universal Smooth Scrolling (Laptop & Mobile) */
+/* 1. Force the container to be scrollable and strictly limit its width */
 #tournamentsList {
   display: flex !important;
   flex-wrap: nowrap !important;
@@ -2476,38 +2476,32 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
   overflow-y: hidden !important;
   -webkit-overflow-scrolling: touch !important;
   scroll-snap-type: x mandatory !important;
-  scrollbar-width: none !important; /* Hides scrollbar in Firefox */
+  width: 100% !important;
+  max-width: 100vw !important; /* CRITICAL: Stops the container from stretching infinitely */
+  scrollbar-width: none !important;
   gap: 16px !important;
-  padding-bottom: 10px !important;
+  padding-bottom: 15px !important;
 }
 
-/* Hide scrollbar in Chrome/Safari */
+/* Hide the ugly horizontal scrollbar */
 #tournamentsList::-webkit-scrollbar {
   display: none !important;
 }
 
-/* Snap cards smoothly into place */
+/* 2. Universal Card Sizing (Adapts to Phone & Laptop automatically) */
 #tournamentsList > div {
   flex: 0 0 auto !important;
-  scroll-snap-align: start !important;
+  scroll-snap-align: center !important;
+  width: 85vw !important;
+  max-width: 320px !important; /* On phones it uses 85vw, on laptops it stops at 320px */
 }
 
-/* 2. Mobile-Only Sizes (Phones) */
+/* 3. Mobile Countdown Fix */
 @media (max-width: 768px) {
   #countdown {
     flex-wrap: wrap !important;
     justify-content: center !important;
     transform: scale(0.85);
-  }
-  #tournamentsList > div {
-    width: 85vw !important; /* Leaves room to see the next card */
-  }
-}
-
-/* 3. Desktop-Only Sizes (Laptops/Monitors) */
-@media (min-width: 769px) {
-  #tournamentsList > div {
-    width: 320px !important; /* Perfect fixed width for laptop screens */
   }
 }
   </style>
